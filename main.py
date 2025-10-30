@@ -43,9 +43,8 @@ def analisar_e_destacar(arquivo_excel_entrada, nome_planilha, linha_cabecalho, a
         
         return
 
-  # Fim brancos
 
-    #colunas necessárias para validação
+    #colunas  para validação
     colunas_necessarias = ['Documento', 'Nome do Visitante']
     colunas_processaveis = [] # Lista de colunas que existem e serão processadas
 
@@ -80,6 +79,7 @@ def analisar_e_destacar(arquivo_excel_entrada, nome_planilha, linha_cabecalho, a
 #Depuração
     print("\n--- DEBUG: Amostra de Dados com Flags ---")
     colunas_debug = []
+    
     # Adiciona colunas para debug apenas se elas e suas flags correspondentes existirem
     if 'Documento' in df.columns and '__Documento_Inválido__' in df.columns : colunas_debug.extend(['Documento', '__Documento_Inválido__'])
     if 'Nome do Visitante' in df.columns and '__Nome_Inválido__' in df.columns: colunas_debug.extend(['Nome do Visitante', '__Nome_Inválido__'])
@@ -99,7 +99,7 @@ def analisar_e_destacar(arquivo_excel_entrada, nome_planilha, linha_cabecalho, a
     df_para_salvar = df.drop(columns=colunas_flags_para_remover, errors='ignore') # errors='ignore' para não falhar se coluna já foi removida ou não existe
 
     try:
-        # Este arquivo será então reaberto por openpyxl para aplicar estilos
+        # abre o arquivo openxl 
         df_para_salvar.to_excel(arquivo_excel_saida, index=False)
         print(f"ℹ️ INFO: Planilha base (sem estilos) salva em '{arquivo_excel_saida}'. Iniciando aplicação de estilos.")
     except Exception as e:
